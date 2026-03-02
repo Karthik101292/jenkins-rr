@@ -1,9 +1,13 @@
 pipeline{
-    agent any
+    agent { label 'slave1'}
     stages{
         stage('stage1'){
             steps{
                 echo "these is stage1"
+                sh '''
+                #!/bin/bash
+                ll
+                '''
             }
         }
         stage('stage2'){
@@ -14,4 +18,3 @@ pipeline{
     
     }
 }
-
