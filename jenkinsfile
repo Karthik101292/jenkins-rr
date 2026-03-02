@@ -2,15 +2,16 @@ pipeline{
     agent any
     stages{
         stage('stage1'){
-            step{
+            steps{
                 echo "these is stage1"
             }
         }
         stage('stage2'){
-            step{
+            steps{
                 echo "these is stage2"
             }
         }
     
     }
 }
+
