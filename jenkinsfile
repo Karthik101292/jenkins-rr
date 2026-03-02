@@ -6,7 +6,7 @@ pipeline{
                 echo "these is stage1"
                 sh '''
                 #!/bin/bash
-                ll
+                ls
                 '''
             }
         }
