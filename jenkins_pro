@@ -1,0 +1,24 @@
+pipeline{
+    agent any
+    stages{
+        stage('stage1'){
+            steps{
+                echo ("these is stage1")
+                sh '''
+                #!/bin/bash
+                pwd
+                date
+                '''
+            }
+        }
+        stage('stage2'){
+            steps{
+                echo ("these is stage2")
+                sh '''
+                ls
+                whoami
+                '''
+            }
+        }
+    }
+}
