@@ -1,3 +1,34 @@
-echo "hello"
-poll scm
-check k
+pipeline {
+    agent any
+    environment {
+        APP = "front end"
+        BRANCH = "main"
+    }
+    stages{
+        stage(build1){
+            steps{
+                sh 'echo ${APP}'
+            }
+        }
+        stage(build2){
+            steps{
+                echo "${env.APP}"
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
