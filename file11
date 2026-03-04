@@ -1,29 +1,37 @@
 pipeline {
     agent any
-    stages{
-        stage(stage1)
-        steps{
-            echo "this is first stage"
-        }
-    }
-    stage(parallel){
-        parallel{
-            stage(parallel-first){
-            steps{
-                echo "this parallel first stage"
+
+    stages {
+
+        stage('stage1') {
+            steps {
+                echo "this is first stage"
             }
         }
-            stage(parallel-second){
-                steps{
-                    echo "this parallel second stage"
+
+        stage('parallel') {
+            parallel {
+
+                stage('parallel-first') {
+                    steps {
+                        echo "this parallel first stage"
+                    }
                 }
+
+                stage('parallel-second') {
+                    steps {
+                        echo "this parallel second stage"
+                    }
+                }
+
             }
         }
-     stage(final){
-        steps{
-            echo "this is final stage"
+
+        stage('final') {
+            steps {
+                echo "this is final stage"
+            }
         }
-     }   
-        
+
     }
 }
