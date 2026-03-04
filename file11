@@ -1,34 +1,29 @@
 pipeline {
     agent any
-    environment {
-        APP = "front end"
-        BRANCH = "main"
-    }
     stages{
-        stage(build1){
+        stage(stage1)
+        steps{
+            echo "this is first stage"
+        }
+    }
+    stage(parallel){
+        parallel{
+            stage(parallel-first){
             steps{
-                sh 'echo ${APP}'
+                echo "this parallel first stage"
             }
         }
-        stage(build2){
-            steps{
-                echo "${env.APP}"
+            stage(parallel-second){
+                steps{
+                    echo "this parallel second stage"
+                }
             }
         }
+     stage(final){
+        steps{
+            echo "this is final stage"
+        }
+     }   
+        
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
