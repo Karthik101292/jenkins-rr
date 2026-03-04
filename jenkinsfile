@@ -3,9 +3,9 @@ pipeline{
     stages{
         stage('build'){
             when{
-                allof{
+                allOf{
                     branch 'main'
-                    environment name:'env' ,value: 'prod'
+                    environment name:'ENV' ,value: 'prod'
                 }
             }
             steps{
