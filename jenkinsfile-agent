@@ -1,0 +1,27 @@
+pipeline{
+    agent none
+    stages{
+        stage('stage1'){
+            agent{label 'slave1'}
+            steps{
+                echo "these is stage1"
+                sh '''
+                #!/bin/bash
+                ls
+                '''
+            }
+        }
+        stage('stage2'){
+            agent{label 'slave2'}
+            steps{
+                echo "these is stage2"
+                sh '''
+                #!/bin/bash
+                pwd
+                sleep 5
+                '''
+            }
+        }
+    
+    }
+}
