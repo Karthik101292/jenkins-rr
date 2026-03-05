@@ -14,7 +14,7 @@ pipeline{
         stage('stage2'){
             agent{label 'slave2'}
             steps{
-                echo "these is stage22"
+                echo "these is stage2"
                 sh '''
                 #!/bin/bash
                 pwd
