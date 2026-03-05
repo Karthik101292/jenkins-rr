@@ -1,0 +1,16 @@
+pipeline{
+    agent any
+    stages{
+        stage('build'){
+            when{
+                allOf{
+                    branch 'main'
+                    environment name:'ENV' ,value: 'prod'
+                }
+            }
+            steps{
+                echo "deplyoing to prod"
+            }
+        }
+    }
+}

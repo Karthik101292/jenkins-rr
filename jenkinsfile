@@ -1,16 +1,27 @@
 pipeline{
-    agent any
+    agent none
     stages{
-        stage('build'){
-            when{
-                allOf{
-                    branch 'main'
-                    environment name:'ENV' ,value: 'prod'
-                }
-            }
+        stage('stage1'){
+            agent{label 'slave1'}
             steps{
-                echo "deplyoing to prod"
+                echo "these is stage1"
+                sh '''
+                #!/bin/bash
+                ls
+                '''
             }
         }
+        stage('stage2'){
+            agent{label 'slave2'}
+            steps{
+                echo "these is stage2"
+                sh '''
+                #!/bin/bash
+                pwd
+                sleep 5
+                '''
+            }
+        }
+    
     }
 }
