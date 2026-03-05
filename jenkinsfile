@@ -1,27 +1,38 @@
-pipeline{
-    agent none
-    stages{
-        stage('stage1'){
-            agent{label 'slave1'}
-            steps{
-                echo "these is stage11"
+pipeline {
+    agent any
+
+    environment {
+        BRANCH = 'main'
+    }
+
+    parameters {
+        string(name: 'ENV', defaultValue: 'dev', description: 'Deployment environment')
+    }
+
+    stages {
+
+        stage('stage1 - Environment Variable') {
+            agent { label 'slave1' }
+            steps {
+                echo "This stage is using environment variable"
+                echo "Branch name is: ${BRANCH}"
+
                 sh '''
-                #!/bin/bash
-                ls
+                echo "Branch from shell: $BRANCH"
                 '''
             }
         }
-        stage('stage2'){
-            agent{label 'slave2'}
-            steps{
-                echo "these is stage22"
+
+        stage('stage2 - Parameter') {
+            steps {
+                echo "This stage is using parameter"
+                echo "Selected environment: ${params.ENV}"
+
                 sh '''
-                #!/bin/bash
-                pwd
-                sleep 5
+                echo "Deployment environment: $ENV"
                 '''
             }
         }
-    
+
     }
 }
