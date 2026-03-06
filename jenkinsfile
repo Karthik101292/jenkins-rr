@@ -1,38 +1,20 @@
 pipeline {
     agent any
-
-    environment {
-        BRANCH = 'main'
-    }
-
-    parameters {
-        string(name: 'ENV', defaultValue: 'dev', description: 'Deployment environment')
-    }
-
+    
     stages {
-
-        stage('stage1 - Environment Variable') {
-            agent { label 'slave1' }
+        stage('Print AWS Username') {
             steps {
-                echo "This stage is using environment variable"
-                echo "Branch name is: ${BRANCH}"
-
-                sh '''
-                echo "Branch from shell: $BRANCH"
-                '''
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-cred'
+                ]]) {
+                    
+                    sh '''
+                    aws sts get-caller-identity --query Arn --output text
+                    '''
+                    
+                }
             }
         }
-
-        stage('stage2 - Parameter') {
-            steps {
-                echo "This stage is using parameter"
-                echo "Selected environment: ${params.ENV}"
-
-                sh '''
-                echo "Deployment environment: $ENV"
-                '''
-            }
-        }
-
     }
 }
